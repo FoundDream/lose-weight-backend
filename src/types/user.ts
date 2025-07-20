@@ -7,8 +7,10 @@ export interface UserResponse {
     gender: string;
     age: number;
     height: number;
-    weight: number;
+    initialWeight: number;
     targetWeight: number;
+    currentWeight: number;
     deadline: Date;
+    bmi: number;
   } | null;
 }

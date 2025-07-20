@@ -8,8 +8,11 @@ export class UserService {
         where: { username: username },
         include: {
           goals: true,
+          weightLogs: true,
         },
       });
+
+      const bmi = (user!.weight / (user!.height / 100) ** 2).toFixed(1);
 
       return {
         success: true,
@@ -20,9 +23,14 @@ export class UserService {
           gender: user?.gender ?? "",
           age: user?.age ?? 0,
           height: user?.height ?? 0,
-          weight: user?.weight ?? 0,
+          initialWeight: user?.weight ?? 0,
+          currentWeight:
+            user?.weightLogs[user?.weightLogs.length - 1]?.weight ??
+            user?.weight ??
+            0,
           targetWeight: user?.goals[0]?.targetWeight ?? 0,
           deadline: user?.goals[0]?.deadline ?? new Date(),
+          bmi: Number(bmi),
         },
       };
     } catch (error) {
